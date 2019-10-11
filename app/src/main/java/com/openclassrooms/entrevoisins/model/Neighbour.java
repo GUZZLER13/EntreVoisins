@@ -7,20 +7,31 @@ import java.util.Objects;
  */
 public class Neighbour {
 
-    /** Identifier */
+    /**
+     * Identifier
+     */
     private Integer id;
 
-    /** Full name */
+    /**
+     * Full name
+     */
     private String name;
 
-    /** Avatar */
+    /**
+     * Avatar
+     */
     private String avatarUrl;
+
+    /* Favorite (true or false) */
+    private Boolean favorite = false;
 
     /**
      * Constructor
+     *
      * @param id
      * @param name
      * @param avatarUrl
+     * @param favorite
      */
     public Neighbour(Integer id, String name, String avatarUrl) {
         this.id = id;
@@ -50,6 +61,14 @@ public class Neighbour {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override
