@@ -31,8 +31,8 @@ public class Neighbour {
      * @param id
      * @param name
      * @param avatarUrl
-     * @param favorite
      */
+
     public Neighbour(Integer id, String name, String avatarUrl) {
         this.id = id;
         this.name = name;
@@ -67,7 +67,7 @@ public class Neighbour {
         return favorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setFavorite(Boolean favorite) {
         this.favorite = favorite;
     }
 
