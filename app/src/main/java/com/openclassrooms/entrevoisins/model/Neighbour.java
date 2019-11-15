@@ -23,7 +23,7 @@ public class Neighbour {
     private String avatarUrl;
 
     /* Favorite (true or false) */
-    private Boolean favorite = false;
+    private Boolean isFavorite = false;
 
     /**
      * Constructor
@@ -63,12 +63,12 @@ public class Neighbour {
         this.avatarUrl = avatarUrl;
     }
 
-    public boolean isFavorite() {
-        return favorite;
+    public boolean GetIsFavorite() {
+        return isFavorite;
     }
 
     public void setFavorite(Boolean favorite) {
-        this.favorite = favorite;
+        this.isFavorite = favorite;
     }
 
     @Override
