@@ -53,7 +53,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             Intent intent = new Intent(holder.itemView.getContext(), NeighbourDetailsActivity.class);
 
             intent.putExtra("name", neighbour.getName());
-            intent.putExtra("image", neighbour.getAvatarUrl());
             intent.putExtra("address", neighbourdetails.getAddress());
             intent.putExtra("mail", neighbourdetails.getMail());
             intent.putExtra("phone", neighbourdetails.getPhone());
