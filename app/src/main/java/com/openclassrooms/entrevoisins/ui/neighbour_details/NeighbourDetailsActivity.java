@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.squareup.picasso.Picasso;
 
 
@@ -14,25 +16,28 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
 
-        String name = getIntent().getStringExtra("name");
-        String avatarURL = getIntent().getStringExtra("avatarURL");
-        String avatarURL2 = avatarURL.replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=");
+        int id = getIntent().getIntExtra("id", -1);
+
+        Neighbour neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
+
+        String name = neighbour.getName();
+        String avatarURL = neighbour.getAvatarUrl();
+        String avatarLarge_URL = avatarURL.replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=");
 
         TextView textView1 = findViewById(R.id.WhiteName);
         TextView textView2 = findViewById(R.id.Name);
-        TextView textView4 = findViewById(R.id.Mail);
+        TextView textView3 = findViewById(R.id.Mail);
         ImageView imageView = findViewById(R.id.Avatar);
 
-        textView1.setText(name);
+        textView1.setText(neighbour.getName());
         textView2.setText(name);
-        textView4.setText("    " + name.toLowerCase() + "@gmail.com");
+        textView3.setText("    " + name.toLowerCase() + "@gmail.com");
 
-        Picasso.get().load(avatarURL2).centerCrop().resize(220, 160).into(imageView);
 
+        Picasso.get().load(avatarLarge_URL).centerCrop().resize(220, 160).into(imageView);
 
     }
 
