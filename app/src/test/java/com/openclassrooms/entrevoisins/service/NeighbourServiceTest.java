@@ -11,8 +11,10 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test on Neighbour service
@@ -37,6 +39,35 @@ public class NeighbourServiceTest {
     @Test
     public void deleteNeighbourWithSuccess() {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
+        service.deleteNeighbour(neighbourToDelete);
+        assertFalse(service.getNeighbours().contains(neighbourToDelete));
+    }
+
+    @Test
+    public void getFavoritesWithSuccess()
+    {
+        service.getFavorites().clear();
+        Neighbour neighbour = new Neighbour(1,"test", "test");
+        service.getFavorites().add(neighbour);
+        assertTrue(service.getFavorites().contains(neighbour));
+    }
+
+    @Test
+    public void addFavNeighbourWithSuccess()
+    {
+        Neighbour neighbour = new Neighbour(1,"test", "test");
+        service.addFavorite(neighbour);
+        assertTrue(service.getFavorites().contains(neighbour));
+    }
+
+    @Test
+    public void deleteFavNeighbourWithSuccess()
+    {
+        Neighbour neighbourToDelete = service.getNeighbours().get(0);
+        List<Neighbour> liste = service.getFavorites();
+        liste.clear();
+        liste.add(neighbourToDelete);
+        assertEquals(service.getNeighbours().get(0), neighbourToDelete);
         service.deleteNeighbour(neighbourToDelete);
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
     }

@@ -68,7 +68,7 @@ public class Neighbour {
         return isFavorite;
     }
 
-    public void setFavorite(Boolean favorite) {
+    public void setIsFavorite(Boolean favorite) {
         this.isFavorite = favorite;
     }
 

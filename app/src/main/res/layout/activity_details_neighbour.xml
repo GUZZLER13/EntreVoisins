@@ -15,12 +15,6 @@
         android:background="@color/colorBackgroundGrey"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/idNumber"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
         <ImageView
             android:id="@+id/Avatar"
             android:layout_width="match_parent"
@@ -50,7 +44,7 @@
             android:layout_marginBottom="-30dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_star_white_24dp"
+            android:src="@drawable/ic_star_border_yellow_24dp"
             app:backgroundTint="@color/colorPrimaryWhite" />
 
         <RelativeLayout
@@ -76,6 +70,7 @@
 
             <TextView
                 android:id="@+id/Adresse"
+                android:text="    8 rue des champs"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/Name"
@@ -87,6 +82,7 @@
 
             <TextView
                 android:id="@+id/Phone"
+                android:text="    06 06 06 06 06"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/Adresse"
@@ -98,6 +94,7 @@
 
             <TextView
                 android:id="@+id/Mail"
+                android:text="    blabla@gmail.com"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/Phone"
@@ -111,6 +108,7 @@
 
         <TextView
             android:id="@+id/DescriptionTitle"
+            android:text="A Propos de moi"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_below="@+id/Layout1"
@@ -122,12 +120,13 @@
             android:fitsSystemWindows="true"
             android:padding="10dp"
             android:singleLine="false"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
         <TextView
             android:id="@+id/Description"
+            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner ! j'aime les jeux de cartes tels que la belote et le tarot."
             android:layout_width="fill_parent"
             android:layout_height="110dp"
             android:layout_below="@+id/DescriptionTitle"

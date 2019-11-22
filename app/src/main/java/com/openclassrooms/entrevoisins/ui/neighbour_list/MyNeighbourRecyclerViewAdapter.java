@@ -41,7 +41,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour neighbour = mNeighbours.get(position);
-        com.openclassrooms.entrevoisins.model.NeighbourDetails neighbourdetails = new com.openclassrooms.entrevoisins.model.NeighbourDetails("    8 rue des champs", "    blabla@gmail.com", "    0606060606", "Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner ! j'aime les jeux de cartes tels que la belote et le tarot.", "A Propos de moi");
 
         holder.mNeighbourName.setText(neighbour.getName());
         Glide.with(holder.mNeighbourAvatar.getContext())
@@ -53,11 +52,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             Intent intent = new Intent(holder.itemView.getContext(), NeighbourDetailsActivity.class);
 
             intent.putExtra("name", neighbour.getName());
-            intent.putExtra("address", neighbourdetails.getAddress());
-            intent.putExtra("mail", neighbourdetails.getMail());
-            intent.putExtra("phone", neighbourdetails.getPhone());
-            intent.putExtra("description", neighbourdetails.getDescription());
-            intent.putExtra("descriptionTitle", neighbourdetails.getDescriptionTitle());
             intent.putExtra("avatarURL", neighbour.getAvatarUrl());
 
             holder.itemView.getContext().startActivity(intent);
