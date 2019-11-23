@@ -126,9 +126,9 @@
 
         <TextView
             android:id="@+id/Description"
-            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner ! j'aime les jeux de cartes tels que la belote et le tarot. "
+            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !\nJ'aime les jeux de cartes tels que la belote et le tarot.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque neque id quam pulvinar, auctor posuere sem maximus. Sed ut libero sapien. Nam eu sollicitudin tellus. Suspendisse cursus eleifend odio, quis sollicitudin justo condimentum sit amet. Mauris bibendum hendrerit pulvinar. Sed non congue turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut mauris dolor, porttitor quis suscipit et, auctor a libero. Suspendisse mattis, mauris nec facilisis ultrices, turpis elit dapibus enim, at vehicula arcu neque non ligula. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque neque id quam pulvinar, auctor posuere sem maximus. Sed ut libero sapien. Nam eu sollicitudin tellus. Suspendisse cursus eleifend odio, quis sollicitudin justo condimentum sit amet. Mauris bibendum hendrerit pulvinar. Sed non congue turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut mauris dolor, porttitor quis suscipit et, auctor a libero. Suspendisse mattis, mauris nec facilisis ultrices, turpis elit dapibus enim, at vehicula arcu neque non ligula. "
             android:layout_width="fill_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/DescriptionTitle"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="-12dp"
