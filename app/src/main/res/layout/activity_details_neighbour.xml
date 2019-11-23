@@ -126,7 +126,7 @@
 
         <TextView
             android:id="@+id/Description"
-            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner ! j'aime les jeux de cartes tels que la belote et le tarot."
+            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner ! j'aime les jeux de cartes tels que la belote et le tarot. "
             android:layout_width="fill_parent"
             android:layout_height="110dp"
             android:layout_below="@+id/DescriptionTitle"

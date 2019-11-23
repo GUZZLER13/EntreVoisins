@@ -3,6 +3,7 @@ package com.openclassrooms.entrevoisins.ui.neighbour_details;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -61,11 +62,16 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                 if (!mApiService.getFavorites().contains(neighbour)) {
                     neighbour.setIsFavorite(true);
                     mApiService.addFavorite(neighbour);
+                    Snackbar.make(view, neighbour.getName() + " added to favorites", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
 
 
                 } else {
                     neighbour.setIsFavorite(false);
                     mApiService.deleteFavorite(neighbour);
+                    Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
                 }
 
                 Log.i("Name", neighbour.getName());
