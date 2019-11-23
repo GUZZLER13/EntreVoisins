@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class FavoritesFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 
+
     /**
      * Create and return a new instance
      *
@@ -36,6 +38,7 @@ public class FavoritesFragment extends Fragment {
      */
     public static FavoritesFragment newInstance() {
         FavoritesFragment fragment = new FavoritesFragment();
+        Log.i("New instance", "newInstance of FavoritesFragment: ");
         return fragment;
     }
 
@@ -56,6 +59,11 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         initList();
+
+
+
+
+
         return view;
     }
 
@@ -66,6 +74,9 @@ public class FavoritesFragment extends Fragment {
         mFavorites = mApiService.getFavorites();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites));
 
+
+        Integer sizeList = (mFavorites).size();
+        Log.i("Size List", sizeList.toString());
 
     }
 
@@ -91,4 +102,6 @@ public class FavoritesFragment extends Fragment {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
     }
+
+
 }

@@ -51,7 +51,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
 
 
-        
+
         mFloat = findViewById(R.id.Favorite);
 
         mFloat.setOnClickListener(new View.OnClickListener() {
