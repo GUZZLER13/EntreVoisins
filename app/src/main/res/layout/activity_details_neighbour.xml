@@ -1,177 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<ScrollView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/activity_details">
+    android:background="#C8C8C8">
 
-
-<RelativeLayout
-
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundGrey"
-        android:orientation="vertical">
+        android:background="#C8C8C8"
+        android:paddingHorizontal="5dp"
+        android:paddingTop="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:id="@+id/Avatar"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:id="@+id/WhiteName"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_alignBottom="@+id/Avatar"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/colorPrimaryWhite"
-            android:textSize="40sp"
-
-            />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/Favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignBottom="@+id/Avatar"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="-30dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_star_border_yellow_24dp"
-            app:backgroundTint="@color/colorPrimaryWhite" />
 
         <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            android:id="@+id/Layout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Avatar"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="-5dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/layout_bg">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/Name"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginTop="20dp"
-                android:paddingStart="10dp"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/Adresse"
-                android:text="    8 rue des champs"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_below="@+id/Name"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:drawableStart="@drawable/ic_location__24dp"
-                android:gravity="center_vertical" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
 
 
-            <TextView
-                android:id="@+id/Phone"
-                android:text="    +33 6 06 06 06 06"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_below="@+id/Adresse"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:drawableStart="@drawable/ic_phone_black_24dp"
-                android:gravity="center_vertical" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@color/cardview_light_background"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+
+                        tools:ignore="PrivateResource">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@null"
+                            app:srcCompat="@drawable/ic_location__24dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="110dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@null"
+                            app:srcCompat="@drawable/ic_phone_black_24dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="150dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@null"
+                            app:srcCompat="@drawable/ic_email_24dp" />
+
+                        <TextView
+                            android:id="@+id/Name"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/Adresse"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="70dp"
+                            android:gravity="center_vertical"
+                            android:text="    8 rue des champs" />
+
+                        <TextView
+                            android:id="@+id/Phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="110dp"
+                            android:gravity="center_vertical"
+                            android:text="    +33 6 06 06 06 06" />
+
+                        <TextView
+                            android:id="@+id/Mail"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginTop="150dp"
+                            android:gravity="center_vertical" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/cardview_light_background"
+
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+
+                        tools:ignore="PrivateResource">
 
 
-            <TextView
-                android:id="@+id/Mail"
-                android:text="    blabla@gmail.com"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_below="@+id/Phone"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:drawableLeft="@drawable/ic_email_24dp"
-                android:gravity="center_vertical" />
+                        <TextView
+                            android:id="@+id/DescriptionTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/DescriptionTitle"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/Description"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginBottom="70dp"
+                            android:text="@string/Description"
+
+                            />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
         </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <TextView
-            android:id="@+id/DescriptionTitle"
-            android:text="A Propos de moi"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:layout_below="@+id/Layout1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/layout_bg3"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
             android:fitsSystemWindows="true"
-            android:padding="10dp"
-            android:singleLine="false"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <ImageView
+                android:id="@+id/Avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+            <TextView
+                android:id="@+id/WhiteName"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="180dp"
+                android:text="Prenom"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="50sp"
+                tools:ignore="PrivateResource" />
 
 
-        <TextView
-            android:id="@+id/Description"
-            android:text="Bonjour ! Je souhaiterais faire de la marche nordique. Pas initiée, je recherche une ou plusieurs personnes susceptibles de m'accompagner !\nJ'aime les jeux de cartes tels que la belote et le tarot.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque neque id quam pulvinar, auctor posuere sem maximus. Sed ut libero sapien. Nam eu sollicitudin tellus. Suspendisse cursus eleifend odio, quis sollicitudin justo condimentum sit amet. Mauris bibendum hendrerit pulvinar. Sed non congue turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut mauris dolor, porttitor quis suscipit et, auctor a libero. Suspendisse mattis, mauris nec facilisis ultrices, turpis elit dapibus enim, at vehicula arcu neque non ligula. \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque neque id quam pulvinar, auctor posuere sem maximus. Sed ut libero sapien. Nam eu sollicitudin tellus. Suspendisse cursus eleifend odio, quis sollicitudin justo condimentum sit amet. Mauris bibendum hendrerit pulvinar. Sed non congue turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut mauris dolor, porttitor quis suscipit et, auctor a libero. Suspendisse mattis, mauris nec facilisis ultrices, turpis elit dapibus enim, at vehicula arcu neque non ligula. "
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/DescriptionTitle"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="-12dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/layout_bg2"
-            android:fitsSystemWindows="true"
-            android:padding="10dp"
-            android:singleLine="false" />
+        </android.support.design.widget.CollapsingToolbarLayout>
 
+    </android.support.design.widget.AppBarLayout>
 
-    </RelativeLayout>
-</ScrollView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/Favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="#FFFF"
+        android:clickable="true"
+        app:fabCustomSize="60dp"
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="end|bottom" />
+</android.support.design.widget.CoordinatorLayout>
