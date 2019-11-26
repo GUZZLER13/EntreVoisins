@@ -76,6 +76,8 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        initList();
+
         EventBus.getDefault().register(this);
     }
 
@@ -84,15 +86,6 @@ public class FavoritesFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
 
-    }
-
-    /**
-     * Very important for display the favorites !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     */
-    @Override
-    public void onResume() {
-        initList();
-        super.onResume();
     }
 
 
