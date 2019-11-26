@@ -23,10 +23,12 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
+            Log.d("getItem", "NeighbourFragment.newInstance");
+
             return NeighbourFragment.newInstance();
 
         } else {
-            Log.i("getItem", "NeighbourFragment.newInstance");
+            Log.d("getItem", "FavoritesFragment.newInstance");
             return FavoritesFragment.newInstance();
         }
     }

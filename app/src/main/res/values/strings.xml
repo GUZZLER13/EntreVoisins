@@ -3,4 +3,5 @@
     <string name="tab_neighbour_title">My neighbours</string>
     <string name="tab_favorites_title">Favorites</string>
     <string name="title_activity_details_neighbour">Détail</string>
+    <string name="mail">"    " + name.toLowerCase() + "@gmail.com"</string>
 </resources>

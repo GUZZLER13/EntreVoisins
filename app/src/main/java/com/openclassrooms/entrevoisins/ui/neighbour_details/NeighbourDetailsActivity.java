@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,32 +49,29 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         textView2.setText(name);
         textView3.setText("    " + name.toLowerCase() + "@gmail.com");
         Picasso.get().load(avatarLarge_URL).centerCrop().resize(220, 160).into(imageView);
-        mFloat.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                if (!mApiService.getFavorites().contains(neighbour)) {
-                    neighbour.setIsFavorite(true);
-                    mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
-                    mApiService.addFavorite(neighbour);
-                    Snackbar.make(view, neighbour.getName() + " added to favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    neighbour.setIsFavorite(false);
-                    mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
-                    mApiService.deleteFavorite(neighbour);
-                    Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-                Log.i("Name", neighbour.getName());
-                Log.i("favori", String.valueOf(neighbour.getIsFavorite()));
-                Integer sizeList = (mApiService.getFavorites()).size();
-                Log.i("Size List", sizeList.toString());
-
-
-                Intent intent = new Intent(view.getContext(), FavoritesFragment.class);
-                intent.putExtra("idFav", mApiService.getFavorites().indexOf(neighbour));
+        mFloat.setOnClickListener(view -> {
+            if (!mApiService.getFavorites().contains(neighbour)) {
+                neighbour.setIsFavorite(true);
+                mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
+                mApiService.addFavorite(neighbour);
+                Snackbar.make(view, neighbour.getName() + " added to favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            } else {
+                neighbour.setIsFavorite(false);
+                mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
+                mApiService.deleteFavorite(neighbour);
+                Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
+            Log.d("Name", neighbour.getName());
+            Log.d("favori", String.valueOf(neighbour.getIsFavorite()));
+            Integer sizeList = (mApiService.getFavorites()).size();
+            Log.d("Size List", sizeList.toString());
+
+
+            Intent intent = new Intent(view.getContext(), FavoritesFragment.class);
+            intent.putExtra("idFav", mApiService.getFavorites().indexOf(neighbour));
         });
 
     }

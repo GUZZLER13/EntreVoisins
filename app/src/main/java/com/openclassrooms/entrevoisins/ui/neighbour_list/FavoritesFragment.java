@@ -26,9 +26,7 @@ import java.util.List;
 public class FavoritesFragment extends Fragment {
 
     private NeighbourApiService mApiService;
-    private List<Neighbour> mFavorites;
     private RecyclerView mRecyclerView;
-
 
 
     /**
@@ -38,7 +36,7 @@ public class FavoritesFragment extends Fragment {
      */
     public static FavoritesFragment newInstance() {
         FavoritesFragment fragment = new FavoritesFragment();
-        Log.i("New instance", "newInstance of FavoritesFragment: ");
+        Log.d("New instance", "newInstance of FavoritesFragment: ");
         return fragment;
     }
 
@@ -46,8 +44,6 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
-
-
     }
 
     @Override
@@ -61,9 +57,6 @@ public class FavoritesFragment extends Fragment {
         initList();
 
 
-
-
-
         return view;
     }
 
@@ -71,12 +64,12 @@ public class FavoritesFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mFavorites = mApiService.getFavorites();
+        List<Neighbour> mFavorites = mApiService.getFavorites();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites));
 
 
-        Integer sizeList = (mFavorites).size();
-        Log.i("Size List", sizeList.toString());
+        int sizeList = (mFavorites).size();
+        Log.i("Size List", Integer.toString(sizeList));
 
     }
 
@@ -90,7 +83,19 @@ public class FavoritesFragment extends Fragment {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+
+
     }
+
+    /**
+     * Very important for display the favorites !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+    @Override
+    public void onResume() {
+        initList();
+        super.onResume();
+    }
+
 
     /**
      * Fired if the user clicks on a delete button
