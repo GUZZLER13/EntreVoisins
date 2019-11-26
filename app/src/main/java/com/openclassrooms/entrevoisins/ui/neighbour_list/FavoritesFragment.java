@@ -84,7 +84,6 @@ public class FavoritesFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
 
-
     }
 
     /**
