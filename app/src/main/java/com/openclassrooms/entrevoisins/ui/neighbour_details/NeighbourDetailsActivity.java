@@ -28,9 +28,9 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
         int id = getIntent().getIntExtra("id", -1);
-        int fragment = getIntent().getIntExtra("frag", -1);
+        boolean fragment = getIntent().getBooleanExtra("frag", false);
 
-        if (fragment == 1) {
+        if (!fragment) {
             neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
             Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
         } else {
@@ -45,8 +45,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
         }
         String name = neighbour.getName();
-        String avatarURL = neighbour.getAvatarUrl();
-        String avatarLarge_URL = avatarURL.replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=");
         TextView textView1 = findViewById(R.id.WhiteName);
         TextView textView2 = findViewById(R.id.Name);
         TextView textView3 = findViewById(R.id.Mail);
@@ -54,7 +52,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         textView1.setText(neighbour.getName());
         textView2.setText(name);
         textView3.setText("    " + name.toLowerCase() + "@gmail.com");
-        Picasso.get().load(avatarLarge_URL).centerCrop().resize(220, 160).into(imageView);
+        Picasso.get().load(neighbour.getAvatarUrl().replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=")).centerCrop().resize(220, 160).into(imageView);
 
         mFloat.setOnClickListener(view -> {
             if (!mApiService.getFavorites().contains(neighbour)) {
@@ -71,13 +69,14 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 if (mApiService.getFavorites().size() == 0) {
                     Toast toast = Toast.makeText(getApplicationContext(), "You have no favorites", Toast.LENGTH_LONG);
+                    toast.setGravity(1,1,1);
                     toast.show();
                 }
             }
             Log.i("Name", neighbour.getName());
             Log.i("Favorite", String.valueOf(neighbour.getIsFavorite()));
-            Integer sizeList = (mApiService.getFavorites()).size();
-            Log.i("Size List of favorites", sizeList.toString());
+            int sizeList = (mApiService.getFavorites()).size();
+            Log.i("Size List of favorites", Integer.toString(sizeList));
         });
     }
 }

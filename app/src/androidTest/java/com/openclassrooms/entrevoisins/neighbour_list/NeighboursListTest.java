@@ -36,23 +36,20 @@ import static org.hamcrest.core.IsNull.notNullValue;
 /**
  * Test class for list of neighbours
  */
+
 @RunWith(AndroidJUnit4.class)
 public class NeighboursListTest {
 
-    // This is fixed
-    private static int ITEMS_COUNT = 12;
-    private static int POSITION = 0;
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
             new ActivityTestRule(ListNeighbourActivity.class);
-    private ListNeighbourActivity mActivity;
     private List<Neighbour> mNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
     private List<Neighbour> mFavorites = mApiService.getFavorites();
 
     @Before
     public void setUp() {
-        mActivity = mActivityRule.getActivity();
+        ListNeighbourActivity mActivity = mActivityRule.getActivity();
         assertThat(mActivity, notNullValue());
     }
 
@@ -63,16 +60,17 @@ public class NeighboursListTest {
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
+        int ITEMS_COUNT = DI.getNeighbourApiService().getNeighbours().size();
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(ViewMatchers.withId(R.id.list_neighbours))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        // Then : the number of element is 11
+                .perform(RecyclerViewActions.actionOnItemAtPosition(2, new DeleteViewAction()));
+        // Then : the number of elements is 10
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT - 1));
     }
 
     /**
-     * We ensure that our recyclerview is displaying at least on item
+     * We ensure that our recyclerView is displaying at least on item
      */
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
@@ -85,7 +83,6 @@ public class NeighboursListTest {
     /**
      * When we click on a Neighbour, display the Activity Vue
      */
-
     @Test
     public void myNeighboursList_clickAction_shouldDisplayVue() {
         //Given : Click on the item
@@ -122,6 +119,7 @@ public class NeighboursListTest {
     @Test
     public void activityVue_loadNameText_shouldBeTheGoodOne() {
         //Given : A Neighbour for the test
+        int POSITION = 0;
         Neighbour neighbour = mNeighbours.get(POSITION);
         //When : Click on it
         onView(withId(R.id.list_neighbours)).
@@ -150,6 +148,4 @@ public class NeighboursListTest {
         // Then : the number of element is 1
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(1));
     }
-
-
 }

@@ -67,7 +67,7 @@ public class FavoritesFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, 2));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, true));
         mFavorites = mApiService.getFavorites();
         int sizeList = mFavorites.size();
         Log.i("Size List Favorites", Integer.toString(sizeList));
@@ -76,10 +76,9 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        initList();
-
         EventBus.getDefault().register(this);
+
+
     }
 
     @Override
@@ -88,6 +87,11 @@ public class FavoritesFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initList();
+    }
 
     /**
      * Fired if the user clicks on a delete button

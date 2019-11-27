@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test on Neighbour service
  */
+
 @RunWith(JUnit4.class)
 public class NeighbourServiceTest {
 
@@ -44,25 +45,22 @@ public class NeighbourServiceTest {
     }
 
     @Test
-    public void getFavoritesWithSuccess()
-    {
+    public void getFavoritesWithSuccess() {
         service.getFavorites().clear();
-        Neighbour neighbour = new Neighbour(1,"test", "test");
+        Neighbour neighbour = new Neighbour(1, "test", "test");
         service.getFavorites().add(neighbour);
         assertTrue(service.getFavorites().contains(neighbour));
     }
 
     @Test
-    public void addFavNeighbourWithSuccess()
-    {
-        Neighbour neighbour = new Neighbour(1,"test", "test");
+    public void addFavNeighbourWithSuccess() {
+        Neighbour neighbour = new Neighbour(1, "test", "test");
         service.addFavorite(neighbour);
         assertTrue(service.getFavorites().contains(neighbour));
     }
 
     @Test
-    public void deleteFavNeighbourWithSuccess()
-    {
+    public void deleteFavNeighbourWithSuccess() {
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         List<Neighbour> liste = service.getFavorites();
         liste.clear();

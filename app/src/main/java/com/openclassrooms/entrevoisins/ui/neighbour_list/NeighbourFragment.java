@@ -62,7 +62,7 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
         List<Neighbour> mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, 1));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, false));
         int sizeList = mNeighbours.size();
         Log.i("Size List Neighbours", Integer.toString(sizeList));
     }

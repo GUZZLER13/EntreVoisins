@@ -28,12 +28,12 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private int frag;
+    private boolean favoriteFragment;
 
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, int frag) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, boolean favoriteFragment) {
         mNeighbours = items;
-        this.frag = frag;
+        this.favoriteFragment = favoriteFragment;
     }
 
 
@@ -58,7 +58,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), NeighbourDetailsActivity.class);
             intent.putExtra("id", mNeighbours.indexOf(neighbour));
-            intent.putExtra("frag", frag);
+            intent.putExtra("frag", favoriteFragment);
             holder.itemView.getContext().startActivity(intent);
 
         });

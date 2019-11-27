@@ -184,6 +184,7 @@
                 android:layout_marginTop="180dp"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="50sp"
+                android:fontFamily="sans-serif-black"
                 tools:ignore="PrivateResource" />
 
 
