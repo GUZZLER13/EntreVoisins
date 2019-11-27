@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -67,10 +68,14 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             if (getItemCount() == 0) {
                 Intent intent2 = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
                 holder.itemView.getContext().startActivity(intent2);
+                Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 
     }
+
+    
 
     @Override
     public int getItemCount() {
