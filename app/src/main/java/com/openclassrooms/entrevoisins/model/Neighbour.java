@@ -28,6 +28,9 @@ public class Neighbour {
     private Boolean isFavorite = false;
 
     /**
+     * /**
+     * <p>
+     * /**
      * Constructor
      *
      * @param id
@@ -60,9 +63,6 @@ public class Neighbour {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 
     public boolean getIsFavorite() {
         return isFavorite;

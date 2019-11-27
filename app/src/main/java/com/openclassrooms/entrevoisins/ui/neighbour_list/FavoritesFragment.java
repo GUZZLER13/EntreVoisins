@@ -31,7 +31,6 @@ public class FavoritesFragment extends Fragment {
     private List<Neighbour> mFavorites;
 
 
-
     /**
      * Create and return a new instance
      *
@@ -48,7 +47,6 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
-
     }
 
     @Override
@@ -59,8 +57,8 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
-        initList();
 
+        initList();
 
         return view;
     }
@@ -70,28 +68,24 @@ public class FavoritesFragment extends Fragment {
      */
     private void initList() {
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, 2));
-
         mFavorites = mApiService.getFavorites();
-
         int sizeList = mFavorites.size();
         Log.i("Size List Favorites", Integer.toString(sizeList));
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         initList();
 
         EventBus.getDefault().register(this);
     }
 
-
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
-
     }
 
 
@@ -105,6 +99,4 @@ public class FavoritesFragment extends Fragment {
         mApiService.deleteFavorite(event.neighbour);
         initList();
     }
-
-
 }

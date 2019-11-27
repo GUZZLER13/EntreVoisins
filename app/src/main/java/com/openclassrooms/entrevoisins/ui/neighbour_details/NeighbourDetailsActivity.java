@@ -1,6 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_details;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,7 +13,6 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -38,18 +36,14 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         } else {
             neighbour = DI.getNeighbourApiService().getFavorites().get(id);
             Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
-
-
         }
+
         mFloat = findViewById(R.id.Favorite);
-
-
         if (mApiService.getFavorites().contains(neighbour)) {
             mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
         } else {
             mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
         }
-
         String name = neighbour.getName();
         String avatarURL = neighbour.getAvatarUrl();
         String avatarLarge_URL = avatarURL.replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=");
@@ -76,21 +70,14 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                 Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 if (mApiService.getFavorites().size() == 0) {
-                    Intent intent2 = new Intent(this, ListNeighbourActivity.class);
                     Toast toast = Toast.makeText(getApplicationContext(), "You have no favorites", Toast.LENGTH_LONG);
                     toast.show();
-                    this.startActivity(intent2);
                 }
             }
             Log.i("Name", neighbour.getName());
             Log.i("Favorite", String.valueOf(neighbour.getIsFavorite()));
             Integer sizeList = (mApiService.getFavorites()).size();
             Log.i("Size List of favorites", sizeList.toString());
-
-
         });
-
     }
-
-
 }

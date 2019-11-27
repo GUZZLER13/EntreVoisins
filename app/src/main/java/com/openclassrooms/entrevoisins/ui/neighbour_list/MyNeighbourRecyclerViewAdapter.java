@@ -72,10 +72,8 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 toast.show();
             }
         });
-
     }
 
-    
 
     @Override
     public int getItemCount() {
