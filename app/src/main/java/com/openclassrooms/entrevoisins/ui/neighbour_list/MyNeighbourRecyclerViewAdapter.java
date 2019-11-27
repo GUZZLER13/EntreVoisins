@@ -27,10 +27,12 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
+    private int frag;
 
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
+    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, int frag) {
         mNeighbours = items;
+        this.frag = frag;
     }
 
 
@@ -39,7 +41,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_neighbour, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -55,17 +56,19 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), NeighbourDetailsActivity.class);
-
             intent.putExtra("id", mNeighbours.indexOf(neighbour));
-
-
+            intent.putExtra("frag", frag);
             holder.itemView.getContext().startActivity(intent);
-
 
         });
 
-        holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour)));
-
+        holder.mDeleteButton.setOnClickListener(view -> {
+            EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+            if (getItemCount() == 0) {
+                Intent intent2 = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
+                holder.itemView.getContext().startActivity(intent2);
+            }
+        });
 
     }
 

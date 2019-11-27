@@ -21,12 +21,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class FavoritesFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private RecyclerView mRecyclerView;
+    private List<Neighbour> mFavorites;
+
 
 
     /**
@@ -35,8 +38,9 @@ public class FavoritesFragment extends Fragment {
      * @return @{@link FavoritesFragment}
      */
     public static FavoritesFragment newInstance() {
+
         FavoritesFragment fragment = new FavoritesFragment();
-        Log.d("New instance", "newInstance of FavoritesFragment: ");
+        Log.i("New instance", "newInstance of FavoritesFragment: ");
         return fragment;
     }
 
@@ -44,6 +48,7 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getNeighbourApiService();
+
     }
 
     @Override
@@ -53,7 +58,7 @@ public class FavoritesFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
         initList();
 
 
@@ -64,12 +69,12 @@ public class FavoritesFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        List<Neighbour> mFavorites = mApiService.getFavorites();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, 2));
 
+        mFavorites = mApiService.getFavorites();
 
-        int sizeList = (mFavorites).size();
-        Log.i("Size List", Integer.toString(sizeList));
+        int sizeList = mFavorites.size();
+        Log.i("Size List Favorites", Integer.toString(sizeList));
 
     }
 
@@ -80,6 +85,7 @@ public class FavoritesFragment extends Fragment {
 
         EventBus.getDefault().register(this);
     }
+
 
     @Override
     public void onStop() {
@@ -96,7 +102,7 @@ public class FavoritesFragment extends Fragment {
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
-        mApiService.deleteNeighbour(event.neighbour);
+        mApiService.deleteFavorite(event.neighbour);
         initList();
     }
 

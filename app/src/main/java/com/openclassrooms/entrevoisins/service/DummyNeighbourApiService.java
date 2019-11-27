@@ -30,7 +30,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
     @Override
     public void deleteNeighbour(Neighbour neighbour) {
         neighbours.remove(neighbour);
-        Log.d("message:", "deleteNeighbour ");
+        Log.i("", "deleteNeighbour ");
 
     }
 
@@ -39,7 +39,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
      */
     @Override
     public List<Neighbour> getFavorites() {
-        Log.d("message:", "getFavorites ");
+        Log.i("", "getFavorites ");
 
         return favorites;
     }
@@ -51,7 +51,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
     public void addFavorite(Neighbour neighbour) {
         if (!favorites.contains(neighbour))
         {
-            Log.d("message:", "addFavorites ");
+            Log.i("", "addFavorites ");
 
             favorites.add(neighbour);
         }
@@ -65,7 +65,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
         if (favorites.contains(neighbour))
         {
             favorites.remove(neighbour);
-            Log.d("delete:", "remove FavoritesNeighbour ");
+            Log.i("", "remove FavoriteNeighbour ");
 
 
         }

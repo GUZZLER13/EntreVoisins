@@ -8,12 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.FavoritesFragment;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -21,6 +22,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
     private FloatingActionButton mFloat;
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
+    private Neighbour neighbour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,17 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
         int id = getIntent().getIntExtra("id", -1);
-        Neighbour neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
+        int fragment = getIntent().getIntExtra("frag", -1);
+
+        if (fragment == 1) {
+            neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
+            Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
+        } else {
+            neighbour = DI.getNeighbourApiService().getFavorites().get(id);
+            Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
+
+
+        }
         mFloat = findViewById(R.id.Favorite);
 
 
@@ -63,15 +75,19 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                 mApiService.deleteFavorite(neighbour);
                 Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                if (mApiService.getFavorites().size() == 0) {
+                    Intent intent2 = new Intent(this, ListNeighbourActivity.class);
+                    Toast toast = Toast.makeText(getApplicationContext(), "You have no favorites", Toast.LENGTH_LONG);
+                    toast.show();
+                    this.startActivity(intent2);
+                }
             }
-            Log.d("Name", neighbour.getName());
-            Log.d("favori", String.valueOf(neighbour.getIsFavorite()));
+            Log.i("Name", neighbour.getName());
+            Log.i("Favorite", String.valueOf(neighbour.getIsFavorite()));
             Integer sizeList = (mApiService.getFavorites()).size();
-            Log.d("Size List", sizeList.toString());
+            Log.i("Size List of favorites", sizeList.toString());
 
 
-            Intent intent = new Intent(view.getContext(), FavoritesFragment.class);
-            intent.putExtra("idFav", mApiService.getFavorites().indexOf(neighbour));
         });
 
     }

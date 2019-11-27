@@ -92,7 +92,7 @@ public class NeighboursListTest {
         onView(withId(R.id.list_neighbours)).
                 perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         //Then : Go to the activityDetails
-        onView(withId(R.id.activity_details)).check(matches(isDisplayed()));
+        onView(withId(R.id.ScrollView01)).check(matches(isDisplayed()));
     }
 
 
@@ -127,7 +127,7 @@ public class NeighboursListTest {
         onView(withId(R.id.list_neighbours)).
                 perform(RecyclerViewActions.actionOnItemAtPosition(POSITION, click()));
         //Then : Have the good name on ActivityVue
-        onView(withId(R.id.Avatar)).check(matches(withText(neighbour.getName())));
+        onView(withId(R.id.Name)).check(matches(withText(neighbour.getName())));
     }
 
 
