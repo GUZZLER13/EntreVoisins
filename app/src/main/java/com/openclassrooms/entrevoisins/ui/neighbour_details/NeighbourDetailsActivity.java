@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -21,6 +23,31 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
     private FloatingActionButton mFloat;
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
     private Neighbour neighbour;
+
+//    @Override
+//    public boolean onKeyUp (int keyCode, KeyEvent event) {
+//        if (mApiService.getFavorites().size() == 0) {
+//            if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                Intent intent = new Intent(this, ListNeighbourActivity.class);
+//
+//                this.startActivity(intent);
+//            }
+//        }
+//        return true;
+//    }
+
+
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if (mApiService.getFavorites().size() == 0 && ) {
+//
+//            Intent intent = new Intent(this, ListNeighbourActivity.class);
+//
+//            this.startActivity(intent);
+//        }
+//    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +96,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 if (mApiService.getFavorites().size() == 0) {
                     Toast toast = Toast.makeText(getApplicationContext(), "You have no favorites", Toast.LENGTH_LONG);
-                    toast.setGravity(1,1,1);
+                    toast.setGravity(1, 1, 1);
                     toast.show();
                 }
             }

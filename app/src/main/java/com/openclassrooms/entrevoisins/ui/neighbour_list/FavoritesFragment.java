@@ -77,6 +77,8 @@ public class FavoritesFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        initList();
+
 
 
     }
@@ -87,11 +89,7 @@ public class FavoritesFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initList();
-    }
+
 
     /**
      * Fired if the user clicks on a delete button
