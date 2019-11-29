@@ -64,14 +64,21 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         });
 
         holder.mDeleteButton.setOnClickListener(view -> {
-            Neighbour favoriteNeighbour;
-            favoriteNeighbour = DI.getNeighbourApiService().getFavorites().get(position);
-            DI.getNeighbourApiService().getFavorites().remove(favoriteNeighbour);
+            if (favoriteFragment) {
+                Neighbour favoriteNeighbour;
+                favoriteNeighbour = DI.getNeighbourApiService().getFavorites().get(position);
+                DI.getNeighbourApiService().getFavorites().remove(favoriteNeighbour);
+            } else {
+                Neighbour neighbour1;
+                neighbour1 = DI.getNeighbourApiService().getNeighbours().get(position);
+                DI.getNeighbourApiService().getNeighbours().remove(neighbour1);
+            }
+
 
 
             /* If list of favorites is empty >>> start ListNeighbourActivity*/
 
-            if (getItemCount() == 0) {
+            if (getItemCount() == 0 && favoriteFragment) {
                 Intent intent = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
                 holder.itemView.getContext().startActivity(intent);
                 Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
