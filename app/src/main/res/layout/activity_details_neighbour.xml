@@ -126,6 +126,10 @@
                         tools:ignore="PrivateResource">
 
 
+
+
+
+
                         <TextView
                             android:id="@+id/DescriptionTitle"
                             android:layout_width="match_parent"
@@ -167,6 +171,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+
+
             <ImageView
                 android:id="@+id/Avatar"
                 android:layout_width="match_parent"
@@ -175,6 +181,20 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
+            <ImageButton
+                android:id="@+id/vue_return_btn"
+                android:layout_width="35dp"
+                android:layout_height="37dp"
+                android:layout_margin="@dimen/text_margin"
+                android:background="@android:color/transparent"
+                android:src="?attr/actionModeCloseDrawable"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/WhiteName"
