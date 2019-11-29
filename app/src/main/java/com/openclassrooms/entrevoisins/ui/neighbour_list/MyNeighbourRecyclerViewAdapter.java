@@ -14,9 +14,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.ui.neighbour_details.NeighbourDetailsActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -63,17 +66,26 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         });
 
-        holder.mDeleteButton.setOnClickListener(view -> {
-            if (favoriteFragment) {
-                Neighbour favoriteNeighbour;
-                favoriteNeighbour = DI.getNeighbourApiService().getFavorites().get(position);
-                DI.getNeighbourApiService().getFavorites().remove(favoriteNeighbour);
-            } else {
-                Neighbour neighbour1;
-                neighbour1 = DI.getNeighbourApiService().getNeighbours().get(position);
-                DI.getNeighbourApiService().getNeighbours().remove(neighbour1);
-            }
+//        holder.mDeleteButton.setOnClickListener(view -> {
+//            if (favoriteFragment) {
+//                Neighbour favoriteNeighbour;
+//                favoriteNeighbour = DI.getNeighbourApiService().getFavorites().get(position);
+//                DI.getNeighbourApiService().getFavorites().remove(favoriteNeighbour);
+//            } else {
+//                Neighbour neighbour1;
+//                neighbour1 = DI.getNeighbourApiService().getNeighbours().get(position);
+//                DI.getNeighbourApiService().getNeighbours().remove(neighbour1);
+//            }
 
+
+        holder.mDeleteButton.setOnClickListener(v -> {
+            if (favoriteFragment) {
+                EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
+
+            } else {
+                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+
+            }
 
 
             /* If list of favorites is empty >>> start ListNeighbourActivity*/
@@ -83,10 +95,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 holder.itemView.getContext().startActivity(intent);
                 Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
                 toast.show();
-            } else {
-                notifyDataSetChanged();       /*Refresh of activity when favorite is removed */
+
 
             }
+
         });
     }
 

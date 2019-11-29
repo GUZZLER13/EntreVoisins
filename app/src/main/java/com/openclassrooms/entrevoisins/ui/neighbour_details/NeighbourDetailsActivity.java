@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +32,9 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
+
+
+
         int id = getIntent().getIntExtra("id", -1);
         boolean fragment = getIntent().getBooleanExtra("frag", false);
 
@@ -51,14 +53,19 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
         }
         String name = neighbour.getName();
-        TextView textView1 = findViewById(R.id.WhiteName);
         TextView textView2 = findViewById(R.id.Name);
         TextView textView3 = findViewById(R.id.Mail);
         ImageView imageView = findViewById(R.id.Avatar);
-        textView1.setText(neighbour.getName());
         textView2.setText(name);
         textView3.setText("    " + name.toLowerCase() + "@gmail.com");
         Picasso.get().load(neighbour.getAvatarUrl().replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=")).centerCrop().resize(220, 160).into(imageView);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(neighbour.getName());
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         mFloat.setOnClickListener(view -> {
             if (!mApiService.getFavorites().contains(neighbour)) {
@@ -85,13 +92,10 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             Log.i("Size List of favorites", Integer.toString(sizeList));
         });
 
-        ImageButton mButton = findViewById(R.id.vue_return_btn);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent (NeighbourDetailsActivity.this, ListNeighbourActivity.class);
-                startActivity(intent);
-            }
-        });    }
+//        ImageButton mButton = findViewById(R.id.vue_return_btn);
+//        mButton.setOnClickListener(view -> {
+//            Intent intent = new Intent(NeighbourDetailsActivity.this, ListNeighbourActivity.class);
+//            startActivity(intent);
+//        });
+    }
 }

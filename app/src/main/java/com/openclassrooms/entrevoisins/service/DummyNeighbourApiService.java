@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.service;
 
-import android.util.Log;
-
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import java.util.ArrayList;
@@ -59,12 +57,7 @@ public class DummyNeighbourApiService implements NeighbourApiService {
      */
     @Override
     public void deleteFavorite(Neighbour neighbour) {
-        if (favorites.contains(neighbour)) {
-            favorites.remove(neighbour);
-
-
-
-        }
+        favorites.remove(neighbour);
     }
 
 
