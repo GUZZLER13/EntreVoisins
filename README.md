@@ -13,7 +13,7 @@ An application that allows people from the same neighborhood to help each other.
 
 <h3>Download, compile and execute the project in Android Studio</h3>
 
-1. Clone or download the project code at https://github.com/KC83/Entrevoisins<br>
+1. Clone or download the project code at https://github.com/guzzler13/EntreVoisins<br>
 2. Open the project in Android Studio<br>
 3. In Android Studio, build your project with <i>app</i> (Open edit Run/Debug configurations dialog <b>OR</b> Click on Run|Run...|<i>app</i>) <br>
 4. Select a device (your own or a virtual device)
