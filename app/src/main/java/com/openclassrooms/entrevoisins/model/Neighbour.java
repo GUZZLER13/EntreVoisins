@@ -63,7 +63,6 @@ public class Neighbour {
         return avatarUrl;
     }
 
-
     public boolean getIsFavorite() {
         return isFavorite;
     }

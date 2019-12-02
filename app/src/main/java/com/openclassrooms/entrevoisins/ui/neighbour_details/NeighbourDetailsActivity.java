@@ -1,13 +1,10 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_details;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +13,9 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 
 public class NeighbourDetailsActivity extends AppCompatActivity {
@@ -34,16 +32,13 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details_neighbour);
 
 
-
         int id = getIntent().getIntExtra("id", -1);
-        boolean fragment = getIntent().getBooleanExtra("frag", false);
+        boolean isFavoriteFragment = getIntent().getBooleanExtra("frag", false);
 
-        if (!fragment) {
+        if (!isFavoriteFragment) {
             neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
-            Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
         } else {
             neighbour = DI.getNeighbourApiService().getFavorites().get(id);
-            Log.i("Favorite is", String.valueOf(neighbour.getIsFavorite()));
         }
 
         mFloat = findViewById(R.id.Favorite);
@@ -64,7 +59,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         toolbar.setTitle(neighbour.getName());
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         mFloat.setOnClickListener(view -> {
@@ -86,16 +81,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
                     toast.show();
                 }
             }
-            Log.i("Name", neighbour.getName());
-            Log.i("Favorite", String.valueOf(neighbour.getIsFavorite()));
-            int sizeList = (mApiService.getFavorites()).size();
-            Log.i("Size List of favorites", Integer.toString(sizeList));
         });
-
-//        ImageButton mButton = findViewById(R.id.vue_return_btn);
-//        mButton.setOnClickListener(view -> {
-//            Intent intent = new Intent(NeighbourDetailsActivity.this, ListNeighbourActivity.class);
-//            startActivity(intent);
-//        });
     }
 }

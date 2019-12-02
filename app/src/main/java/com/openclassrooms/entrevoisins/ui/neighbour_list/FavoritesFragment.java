@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
-import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -29,7 +27,6 @@ public class FavoritesFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private RecyclerView mRecyclerView;
-    private List<Neighbour> mFavorites;
 
 
     /**
@@ -38,10 +35,7 @@ public class FavoritesFragment extends Fragment {
      * @return @{@link FavoritesFragment}
      */
     public static FavoritesFragment newInstance() {
-
-        FavoritesFragment fragment = new FavoritesFragment();
-        Log.i("New instance", "newInstance of FavoritesFragment: ");
-        return fragment;
+        return new FavoritesFragment();
     }
 
     @Override
@@ -58,20 +52,17 @@ public class FavoritesFragment extends Fragment {
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
-
         initList();
-
         return view;
     }
 
     /**
-     * Init the List of neighbours
+     * Init the List of favorites
      */
     private void initList() {
+        List<Neighbour> mFavorites = mApiService.getFavorites();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, true));
-        mFavorites = mApiService.getFavorites();
-        int sizeList = mFavorites.size();
-        Log.i("Size List Favorites", Integer.toString(sizeList));
+
     }
 
     @Override
@@ -79,9 +70,6 @@ public class FavoritesFragment extends Fragment {
         super.onStart();
         EventBus.getDefault().register(this);
         initList();
-
-
-
     }
 
     @Override
@@ -89,7 +77,6 @@ public class FavoritesFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
 
 
     /**

@@ -8,7 +8,7 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
  */
 public class DI {
 
-    private static NeighbourApiService service = new DummyNeighbourApiService();
+    private static NeighbourApiService mApiService = new DummyNeighbourApiService();
 
     /**
      * Get an instance on @{@link NeighbourApiService}
@@ -16,7 +16,7 @@ public class DI {
      * @return
      */
     public static NeighbourApiService getNeighbourApiService() {
-        return service;
+        return mApiService;
     }
 
     /**

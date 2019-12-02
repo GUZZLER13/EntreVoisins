@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import java.util.Objects;
 
 
 public class NeighbourFragment extends Fragment {
-
     private NeighbourApiService mApiService;
     private RecyclerView mRecyclerView;
 
@@ -36,9 +34,7 @@ public class NeighbourFragment extends Fragment {
      * @return @{@link NeighbourFragment}
      */
     public static NeighbourFragment newInstance() {
-        NeighbourFragment fragment = new NeighbourFragment();
-        Log.i("New instance", "newInstance of NeighbourFragment: ");
-        return fragment;
+        return new NeighbourFragment();
     }
 
     @Override
@@ -64,8 +60,6 @@ public class NeighbourFragment extends Fragment {
     private void initList() {
         List<Neighbour> mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, false));
-        int sizeList = mNeighbours.size();
-        Log.i("Size List Neighbours", Integer.toString(sizeList));
     }
 
     @Override

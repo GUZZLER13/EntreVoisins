@@ -18,56 +18,56 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit test on Neighbour service
+ * Unit test on Neighbour mApiService
  */
 
 @RunWith(JUnit4.class)
 public class NeighbourServiceTest {
 
-    private NeighbourApiService service;
+    private NeighbourApiService mApiService;
 
     @Before
     public void setup() {
-        service = DI.getNewInstanceApiService();
+        mApiService = DI.getNewInstanceApiService();
     }
 
     @Test
     public void getNeighboursWithSuccess() {
-        List<Neighbour> neighbours = service.getNeighbours();
+        List<Neighbour> neighbours = mApiService.getNeighbours();
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(Objects.requireNonNull(expectedNeighbours.toArray())));
     }
 
     @Test
     public void deleteNeighbourWithSuccess() {
-        Neighbour neighbourToDelete = service.getNeighbours().get(0);
-        service.deleteNeighbour(neighbourToDelete);
-        assertFalse(service.getNeighbours().contains(neighbourToDelete));
+        Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
+        mApiService.deleteNeighbour(neighbourToDelete);
+        assertFalse(mApiService.getNeighbours().contains(neighbourToDelete));
     }
 
     @Test
     public void getFavoritesWithSuccess() {
-        service.getFavorites().clear();
+        mApiService.getFavorites().clear();
         Neighbour neighbour = new Neighbour(1, "test", "test");
-        service.getFavorites().add(neighbour);
-        assertTrue(service.getFavorites().contains(neighbour));
+        mApiService.getFavorites().add(neighbour);
+        assertTrue(mApiService.getFavorites().contains(neighbour));
     }
 
     @Test
     public void addFavNeighbourWithSuccess() {
         Neighbour neighbour = new Neighbour(1, "test", "test");
-        service.addFavorite(neighbour);
-        assertTrue(service.getFavorites().contains(neighbour));
+        mApiService.addFavorite(neighbour);
+        assertTrue(mApiService.getFavorites().contains(neighbour));
     }
 
     @Test
     public void deleteFavNeighbourWithSuccess() {
-        Neighbour neighbourToDelete = service.getNeighbours().get(0);
-        List<Neighbour> liste = service.getFavorites();
-        liste.clear();
-        liste.add(neighbourToDelete);
-        assertEquals(service.getNeighbours().get(0), neighbourToDelete);
-        service.deleteNeighbour(neighbourToDelete);
-        assertFalse(service.getNeighbours().contains(neighbourToDelete));
+        Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
+        List<Neighbour> list = mApiService.getFavorites();
+        list.clear();
+        list.add(neighbourToDelete);
+        assertEquals(mApiService.getNeighbours().get(0), neighbourToDelete);
+        mApiService.deleteNeighbour(neighbourToDelete);
+        assertFalse(mApiService.getNeighbours().contains(neighbourToDelete));
     }
 }

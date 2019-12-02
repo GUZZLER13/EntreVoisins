@@ -29,12 +29,15 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private boolean favoriteFragment;
+    private boolean isFavoriteFragment;
 
 
-    MyNeighbourRecyclerViewAdapter(List<Neighbour> items, boolean favoriteFragment) {
+    MyNeighbourRecyclerViewAdapter(List<Neighbour> items, boolean isFavoriteFragment) {
+
+        /* Ajout du booléen isFavoriteFragment en paramètre qui sert à différencier les 2 listes de voisins */
+
         mNeighbours = items;
-        this.favoriteFragment = favoriteFragment;
+        this.isFavoriteFragment = isFavoriteFragment;
     }
 
 
@@ -56,15 +59,20 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-        /*  */
+
+
+        /* envoi de l'id et du booléen vers l'activité de détails */
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(holder.itemView.getContext(), NeighbourDetailsActivity.class);
             intent.putExtra("id", mNeighbours.indexOf(neighbour));
-            intent.putExtra("frag", favoriteFragment);
+            intent.putExtra("frag", isFavoriteFragment);
             holder.itemView.getContext().startActivity(intent);
-
         });
+
+
+
+        /* Cette méthode de suppresion des voisins n'utilise pas les events ! */
 
 //        holder.mDeleteButton.setOnClickListener(view -> {
 //            if (favoriteFragment) {
@@ -78,8 +86,11 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 //            }
 
 
+
+        /* méthode de suppression des voisins en utilisant les events */
+
         holder.mDeleteButton.setOnClickListener(v -> {
-            if (favoriteFragment) {
+            if (isFavoriteFragment) {
                 EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
 
             } else {
@@ -88,17 +99,14 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             }
 
 
-            /* If list of favorites is empty >>> start ListNeighbourActivity*/
+            /* Si la liste de favoris est vide >>> start ListNeighbourActivity */
 
-            if (getItemCount() == 0 && favoriteFragment) {
+            if (getItemCount() == 0 && isFavoriteFragment) {
                 Intent intent = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
                 holder.itemView.getContext().startActivity(intent);
                 Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
                 toast.show();
-
-
             }
-
         });
     }
 
