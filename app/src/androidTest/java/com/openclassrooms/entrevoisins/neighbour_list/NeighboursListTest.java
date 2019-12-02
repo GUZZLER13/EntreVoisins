@@ -61,11 +61,12 @@ public class NeighboursListTest {
     public void myNeighboursList_deleteAction_shouldRemoveItem() {
         // Given : We remove the element at position 2
         int ITEMS_COUNT = DI.getNeighbourApiService().getNeighbours().size();
+        // size : 12
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
         onView(ViewMatchers.withId(R.id.list_neighbours))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(2, new DeleteViewAction()));
-        // Then : the number of elements is 10
+        // Then : the number of elements is 12 - 1
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT - 1));
     }
 
