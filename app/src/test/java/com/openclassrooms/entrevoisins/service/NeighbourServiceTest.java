@@ -42,7 +42,9 @@ public class NeighbourServiceTest {
     public void deleteNeighbourWithSuccess() {
         Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
         mApiService.deleteNeighbour(neighbourToDelete);
+        neighbourToDelete.setIsFavorite(true);
         assertFalse(mApiService.getNeighbours().contains(neighbourToDelete));
+        assertFalse(mApiService.getFavorites().contains(neighbourToDelete));
     }
 
     @Test
