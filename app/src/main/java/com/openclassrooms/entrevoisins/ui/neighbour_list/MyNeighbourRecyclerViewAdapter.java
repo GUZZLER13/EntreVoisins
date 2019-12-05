@@ -96,6 +96,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             } else {
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
 
+
+                /* Si on supprime le voisin dans la liste principale, il se supprime aussi de la liste des favoris */
+                EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
+
             }
 
 
