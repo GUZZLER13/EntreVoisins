@@ -54,6 +54,9 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         Neighbour neighbour = mNeighbours.get(position);
 
         holder.mNeighbourName.setText(neighbour.getName());
+
+        //Chargement image avatar
+
         Glide.with(holder.mNeighbourAvatar.getContext())
                 .load(neighbour.getAvatarUrl())
                 .apply(RequestOptions.circleCropTransform())

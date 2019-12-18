@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.Random;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -42,7 +43,7 @@ public class NeighboursListTest {
 
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
-            new ActivityTestRule(ListNeighbourActivity.class);
+            new ActivityTestRule<>(ListNeighbourActivity.class);
     private List<Neighbour> mNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
     private List<Neighbour> mFavorites = mApiService.getFavorites();
@@ -59,18 +60,26 @@ public class NeighboursListTest {
      */
     @Test
     public void myNeighboursList_deleteAction_shouldRemoveItem_inBothLists() {
+
         // Given : We add the element at position 2 to the favorites
+        mApiService.getFavorites().clear();
         mApiService.addFavorite(mNeighbours.get(2));
+
+        // size of favorites list : 1
         int ITEMS_COUNT_FAV = DI.getNeighbourApiService().getFavorites().size();
-        // size favorites : 1
+        onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(1));
+
         // Given : We remove the element at position 2
         int ITEMS_COUNT = DI.getNeighbourApiService().getNeighbours().size();
-        // size neighbours: 12
+
+        // size neighbours list : 12
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
-        // When perform a click on a delete icon
+
+        // When perform a click on a delete icon (from main list)
         onView(ViewMatchers.withId(R.id.list_neighbours))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(2, new DeleteViewAction()));
-        // Then : the number of elements is 12 - 1
+
+        // Then : the number of elements is 12 - 1 (in both lists)
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT - 1));
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(ITEMS_COUNT_FAV - 1));
 
@@ -81,6 +90,7 @@ public class NeighboursListTest {
      */
     @Test
     public void myNeighboursList_shouldNotBeEmpty() {
+
         // First scroll to the position that needs to be matched and click on it.
         onView(ViewMatchers.withId(R.id.list_neighbours))
                 .check(matches(hasMinimumChildCount(1)));
@@ -92,9 +102,11 @@ public class NeighboursListTest {
      */
     @Test
     public void myNeighboursList_clickAction_shouldDisplayVue() {
+
         //Given : Click on the item
         onView(withId(R.id.list_neighbours)).
                 perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
         //Then : Go to the activityDetails
         onView(withId(R.id.ScrollView01)).check(matches(isDisplayed()));
     }
@@ -105,6 +117,7 @@ public class NeighboursListTest {
      */
     @Test
     public void myFavoritesList_haveOnlyFavorites() {
+
         //Given : The Favorite List is empty
         onView(withId(R.id.container)).perform(scrollRight());
         mFavorites.clear();
@@ -128,22 +141,34 @@ public class NeighboursListTest {
         //Given : A Neighbour for the test
         int POSITION = 0;
         Neighbour neighbour = mNeighbours.get(POSITION);
+
         //When : Click on it
         onView(withId(R.id.list_neighbours)).
                 perform(RecyclerViewActions.actionOnItemAtPosition(POSITION, click()));
+
         //Then : Have the good name on ActivityVue
         onView(withId(R.id.Name)).check(matches(withText(neighbour.getName())));
     }
 
 
     /**
-     * When we delete an item on the favorites list, the item is no more shown
+     * When we delete an item on the favorites list, the item is no more shown but but it still exists in the list of neighbours
      */
     @Test
     public void myFavoritesList_deleteAction_shouldRemoveItem() {
-        //Given : Add 2 Neighbours in the Favorite List and check the List's size
-        mApiService.addFavorite(mNeighbours.get(0));
-        mApiService.addFavorite(mNeighbours.get(1));
+        int size = mApiService.getNeighbours().size();
+
+        //Given : Add 2 Neighbours at random in the Favorite List
+        int id1 = new Random().nextInt(mApiService.getNeighbours().size());
+        mApiService.addFavorite(mNeighbours.get(id1));
+        int id2 = new Random().nextInt(mApiService.getNeighbours().size());
+        while (id2 == id1) {
+            id2 = new Random().nextInt(mApiService.getNeighbours().size());
+        }
+        mApiService.addFavorite(mNeighbours.get(id2));
+
+
+        //check the List's size (2)
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(2));
 
         //Scroll to the favorite page in the container
@@ -152,7 +177,11 @@ public class NeighboursListTest {
         // When perform a click on a delete icon for the 2nd item
         onView(ViewMatchers.withId(R.id.list_favorites))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
-        // Then : the number of element is 1
+
+        // Then : the number of element is 1 (in favorites list)
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(1));
+
+        // Then : the number of elements has not changed (in main list)
+        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(size));
     }
 }

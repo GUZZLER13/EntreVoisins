@@ -11,6 +11,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -35,6 +36,8 @@ public class NeighbourServiceTest {
     public void getNeighboursWithSuccess() {
         List<Neighbour> neighbours = mApiService.getNeighbours();
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
+
+        //La liste de voisins demandée est la même que celle espérée
         assertThat(neighbours, IsIterableContainingInAnyOrder.containsInAnyOrder(Objects.requireNonNull(expectedNeighbours.toArray())));
     }
 
@@ -43,6 +46,8 @@ public class NeighbourServiceTest {
         Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
         mApiService.deleteNeighbour(neighbourToDelete);
         neighbourToDelete.setIsFavorite(true);
+
+        // Le voisin supprimé depuis la liste pricipale n'est plus dans aucune liste
         assertFalse(mApiService.getNeighbours().contains(neighbourToDelete));
         assertFalse(mApiService.getFavorites().contains(neighbourToDelete));
     }
@@ -52,24 +57,40 @@ public class NeighbourServiceTest {
         mApiService.getFavorites().clear();
         Neighbour neighbour = new Neighbour(1, "test", "test");
         mApiService.getFavorites().add(neighbour);
-        assertTrue(mApiService.getFavorites().contains(neighbour));
+
+        //La liste des favoris ne contient que le voisin ajouté en favoris
+        assertEquals(mApiService.getFavorites().get(0), neighbour);
+        assertEquals(mApiService.getFavorites().size(), 1);
     }
 
     @Test
     public void addFavNeighbourWithSuccess() {
         Neighbour neighbour = new Neighbour(1, "test", "test");
         mApiService.addFavorite(neighbour);
+
+        //La liste des favoris contient bien le voisin ajouté dans la liste des favoris
         assertTrue(mApiService.getFavorites().contains(neighbour));
     }
 
     @Test
     public void deleteFavNeighbourWithSuccess() {
-        Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
+        List<Neighbour> neighbours = mApiService.getNeighbours();
         List<Neighbour> list = mApiService.getFavorites();
+
+        //Choisir un voisin au hasard dans la liste principale
+        Neighbour neighbourToDelete = neighbours.get(new Random().nextInt(mApiService.getNeighbours().size()));
+
+        //Ajouter ce voisin dans la liste des favoris (vierge)
         list.clear();
         list.add(neighbourToDelete);
-        assertEquals(mApiService.getNeighbours().get(0), neighbourToDelete);
-        mApiService.deleteNeighbour(neighbourToDelete);
-        assertFalse(mApiService.getNeighbours().contains(neighbourToDelete));
+
+        // Supprimer ce voisin des favoris
+        mApiService.deleteFavorite(neighbourToDelete);
+
+        // Le voisin supprimé depuis les favoris ne doit plus être dans la liste des favoris ...
+        assertFalse(list.contains(neighbourToDelete));
+
+        // ... mais doit rester dans la liste pricipale
+        assertTrue(neighbours.contains(neighbourToDelete));
     }
 }

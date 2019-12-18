@@ -31,9 +31,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
 
+        // Récupération Intent
 
         int id = getIntent().getIntExtra("id", -1);
         boolean isFavoriteFragment = getIntent().getBooleanExtra("frag", false);
+
+        //Chargement liste voisins différente si fragment favoris ou non
 
         if (!isFavoriteFragment) {
             neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
@@ -41,29 +44,38 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             neighbour = DI.getNeighbourApiService().getFavorites().get(id);
         }
 
+        // Traitement icone favori
+
         mFloat = findViewById(R.id.Favorite);
         if (mApiService.getFavorites().contains(neighbour)) {
             mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
         } else {
             mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
         }
+
+
         String name = neighbour.getName();
         TextView textView2 = findViewById(R.id.Name);
         TextView textView3 = findViewById(R.id.Mail);
         ImageView imageView = findViewById(R.id.Avatar);
         textView2.setText(name);
-        textView3.setText("    " + name.toLowerCase() + "@gmail.com");
+        textView3.setText(String.format("    %s@gmail.com", name.toLowerCase()));
+
+        // utilisation de Picasso (librairie de chargement d'images Asynchrone)
+
         Picasso.get().load(neighbour.getAvatarUrl().replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=")).centerCrop().resize(220, 160).into(imageView);
+
+        // Traitement Toolbar
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(neighbour.getName());
-
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+        // Traitement voisin en favori ou non + icone favori ET affichage toast + snackbar
 
         mFloat.setOnClickListener(view -> {
-            if (!mApiService.getFavorites().contains(neighbour)) {
+            if (!neighbour.getIsFavorite()) {
                 neighbour.setIsFavorite(true);
                 mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
                 mApiService.addFavorite(neighbour);
