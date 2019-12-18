@@ -43,7 +43,7 @@ public class NeighbourServiceTest {
 
     @Test
     public void deleteNeighbourWithSuccess() {
-        Neighbour neighbourToDelete = mApiService.getNeighbours().get(0);
+        Neighbour neighbourToDelete = mApiService.getNeighbours().get(new Random().nextInt(mApiService.getNeighbours().size()));
         mApiService.deleteNeighbour(neighbourToDelete);
         neighbourToDelete.setIsFavorite(true);
 

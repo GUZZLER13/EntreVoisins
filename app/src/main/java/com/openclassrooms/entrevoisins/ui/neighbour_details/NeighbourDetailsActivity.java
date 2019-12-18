@@ -31,12 +31,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_neighbour);
 
-        // Récupération Intent
+        // Récupération des intents
 
         int id = getIntent().getIntExtra("id", -1);
         boolean isFavoriteFragment = getIntent().getBooleanExtra("frag", false);
 
-        //Chargement liste voisins différente si fragment favoris ou non
+        //Le voisin doit correspondre au bon item sélectionné selon si liste favoris ou liste principale
 
         if (!isFavoriteFragment) {
             neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
@@ -44,7 +44,7 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             neighbour = DI.getNeighbourApiService().getFavorites().get(id);
         }
 
-        // Traitement icone favori
+        // Traitement couleur icone favori
 
         mFloat = findViewById(R.id.Favorite);
         if (mApiService.getFavorites().contains(neighbour)) {
@@ -72,21 +72,27 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        // Traitement voisin en favori ou non + icone favori ET affichage toast + snackbar
+        // Ajout ou suppression du voisin en favori ou non + traitement couleur icone favori + affichage toast et snackbar
 
         mFloat.setOnClickListener(view -> {
             if (!neighbour.getIsFavorite()) {
                 neighbour.setIsFavorite(true);
                 mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
                 mApiService.addFavorite(neighbour);
+
+                //snackbar
                 Snackbar.make(view, neighbour.getName() + " added to favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             } else {
                 neighbour.setIsFavorite(false);
                 mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
                 mApiService.deleteFavorite(neighbour);
+
+                //snackbar
                 Snackbar.make(view, neighbour.getName() + " removed to favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                //message pour informer qu'il n'y a plus de favori si on enlève le dernier favori (toast)
                 if (mApiService.getFavorites().size() == 0) {
                     Toast toast = Toast.makeText(getApplicationContext(), "You have no favorites", Toast.LENGTH_LONG);
                     toast.setGravity(1, 1, 1);

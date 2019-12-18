@@ -17,6 +17,8 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      * @param position
      * @return
      */
+
+    // nouvelle instance d'un fragment selon onglet sélectionné
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
@@ -31,6 +33,8 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      *
      * @return
      */
+
+    // Prise en compte des 2 onglets (My neighbours et favorites)
     @Override
     public int getCount() {
         return 2;
