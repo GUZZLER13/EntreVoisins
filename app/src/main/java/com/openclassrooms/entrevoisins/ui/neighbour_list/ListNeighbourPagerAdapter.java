@@ -18,7 +18,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      * @return
      */
 
-    // nouvelle instance d'un fragment selon onglet sélectionné
+    // nouvelle instance du fragment correspondant selon onglet sélectionné
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {

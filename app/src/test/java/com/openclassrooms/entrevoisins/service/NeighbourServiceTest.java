@@ -64,7 +64,7 @@ public class NeighbourServiceTest {
     }
 
     @Test
-    public void addFavNeighbourWithSuccess() {
+        public void addFavNeighbourWithSuccess() {
         Neighbour neighbour = new Neighbour(1, "test", "test");
         mApiService.addFavorite(neighbour);
 

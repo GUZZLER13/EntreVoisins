@@ -108,7 +108,7 @@ public class NeighboursListTest {
                 perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         //Then : Go to the activityDetails
-        onView(withId(R.id.ScrollView01)).check(matches(isDisplayed()));
+        onView(withId(R.id.details_neighbour)).check(matches(isDisplayed()));
     }
 
 
@@ -123,12 +123,17 @@ public class NeighboursListTest {
         mFavorites.clear();
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(0));
 
-        //When : Add 3 Neighbours in the Favorite List and check the List's size
-        for (int i = 0; i < 3; i++) {
-            mApiService.addFavorite(mNeighbours.get(i));
-        }
+        //When : Add 3 Neighbours at random in the Favorite List and check the List's size
+        int id1 = new Random().nextInt(mApiService.getNeighbours().size());
+        mApiService.addFavorite(mNeighbours.get(id1));
+        int id2 = new Random().nextInt(mApiService.getNeighbours().size());
+        while (id2 == id1) {id2 = new Random().nextInt(mApiService.getNeighbours().size());}
+        mApiService.addFavorite(mNeighbours.get(id2));
+        int id3 = new Random().nextInt(mApiService.getNeighbours().size());
+        while (id3 == id1 || id3 == id2) {id3 = new Random().nextInt(mApiService.getNeighbours().size());}
+        mApiService.addFavorite(mNeighbours.get(id3));
 
-        //Then : The FavList have 3 Neighbours
+        //Then : The FavList have only 3 Neighbours
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(3));
     }
 

@@ -43,6 +43,13 @@ public class Neighbour {
         this.avatarUrl = avatarUrl;
     }
 
+    public Neighbour(Integer id, String name, String avatarUrl, Boolean isFavorite) {
+        this.id = id;
+        this.name = name;
+        this.avatarUrl = avatarUrl;
+        this.isFavorite = isFavorite;
+    }
+
     public Integer getId() {
         return id;
     }

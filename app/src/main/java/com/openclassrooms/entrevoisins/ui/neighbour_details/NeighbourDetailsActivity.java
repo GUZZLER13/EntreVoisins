@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,12 +33,12 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details_neighbour);
 
         // Récupération des intents
-
         int id = getIntent().getIntExtra("id", -1);
         boolean isFavoriteFragment = getIntent().getBooleanExtra("frag", false);
+        Log.d("", String.valueOf(isFavoriteFragment));
 
         //Le voisin doit correspondre au bon item sélectionné selon si liste favoris ou liste principale
-
+        // On se sert de l'id et du booléen récupérés dans l'intent
         if (!isFavoriteFragment) {
             neighbour = DI.getNeighbourApiService().getNeighbours().get(id);
         } else {
@@ -45,7 +46,6 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
         }
 
         // Traitement couleur icone favori
-
         mFloat = findViewById(R.id.Favorite);
         if (mApiService.getFavorites().contains(neighbour)) {
             mFloat.setImageResource(R.drawable.ic_star_yellow_24dp);
@@ -53,27 +53,27 @@ public class NeighbourDetailsActivity extends AppCompatActivity {
             mFloat.setImageResource(R.drawable.ic_star_border_yellow_24dp);
         }
 
-
+        // Mise a jour des informations du voisin sélectionné
         String name = neighbour.getName();
         TextView textView2 = findViewById(R.id.Name);
-        TextView textView3 = findViewById(R.id.Mail);
-        ImageView imageView = findViewById(R.id.Avatar);
         textView2.setText(name);
+        TextView textView3 = findViewById(R.id.Mail);
         textView3.setText(String.format("    %s@gmail.com", name.toLowerCase()));
 
         // utilisation de Picasso (librairie de chargement d'images Asynchrone)
-
+        ImageView imageView = findViewById(R.id.Avatar);
         Picasso.get().load(neighbour.getAvatarUrl().replace("http://i.pravatar.cc/150?u=", "http://i.pravatar.cc/300?u=")).centerCrop().resize(220, 160).into(imageView);
 
         // Traitement Toolbar
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(neighbour.getName());
         setSupportActionBar(toolbar);
+
+        //flèche de retour sur toolbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        // Ajout ou suppression du voisin en favori ou non + traitement couleur icone favori + affichage toast et snackbar
 
+        // Ajout ou suppression du voisin en favori ou non + traitement couleur icone favori + affichage toast et snackbar
         mFloat.setOnClickListener(view -> {
             if (!neighbour.getIsFavorite()) {
                 neighbour.setIsFavorite(true);
