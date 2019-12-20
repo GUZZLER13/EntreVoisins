@@ -119,8 +119,6 @@ public class NeighboursListTest {
     @Test
     public void myFavoritesList_haveOnlyFavorites() {
 
-        mApiService.deleteAllFavorites();
-
         int sizeFav = mApiService.getFavorites().size();
 
         //When : Add 3 Neighbours in the Favorite List and check the List's size
@@ -137,6 +135,10 @@ public class NeighboursListTest {
                 perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
         onView(withId(R.id.Favorite)).
                 perform(click()).perform(pressBack());
+        onView(withId(R.id.list_neighbours)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.Favorite)).
+                perform(pressBack());
+        onView(withId(R.id.list_neighbours)).perform(RecyclerViewActions.actionOnItemAtPosition(mApiService.getNeighbours().size() - 1, new DeleteViewAction()));
 
         //Then : The FavList have 3 more Neighbors
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(sizeFav + 3));
