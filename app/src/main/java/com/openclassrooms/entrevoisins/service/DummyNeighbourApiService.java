@@ -62,7 +62,6 @@ public class DummyNeighbourApiService implements NeighbourApiService {
     }
 
 
-
     @Override
     public void deleteAllFavorites() {
         for (Neighbour m : neighbours) {

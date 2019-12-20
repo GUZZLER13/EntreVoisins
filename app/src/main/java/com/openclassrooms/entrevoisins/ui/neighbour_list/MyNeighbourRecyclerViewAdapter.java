@@ -78,28 +78,27 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
 
         /* méthode de suppression des voisins en utilisant les events */
-            holder.mDeleteButton.setOnClickListener(v -> {
-                if (isFavoriteFragment) {
-                    EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
+        holder.mDeleteButton.setOnClickListener(v -> {
+            if (isFavoriteFragment) {
+                EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
 
-                } else {
-                    EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+            } else {
+                EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
 
 
-                    /* Si on supprime le voisin dans la liste principale, il se supprime aussi de la liste des favoris */
-                    EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
-                }
+                /* Si on supprime le voisin dans la liste principale, il se supprime aussi de la liste des favoris */
+                EventBus.getDefault().post(new DeleteFavoriteEvent(neighbour));
+            }
 
 
             /* Si la liste de favoris est vide >>> start ListNeighbourActivity */
-            if ( mApiService.getFavorites().size() == 0 && isFavoriteFragment) {
+            if (mApiService.getFavorites().size() == 0 && isFavoriteFragment) {
                 Intent intent = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
                 holder.itemView.getContext().startActivity(intent);
                 Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
                 toast.show();
             }
         });
-
     }
 
 
