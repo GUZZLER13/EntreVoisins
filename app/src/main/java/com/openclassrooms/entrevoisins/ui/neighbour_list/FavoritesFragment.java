@@ -13,13 +13,11 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
-import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -60,16 +58,13 @@ public class FavoritesFragment extends Fragment {
      * Init the List of favorites
      */
     public void initList() {
-        List<Neighbour> mFavorites = mApiService.getFavorites();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mFavorites, true));
-
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mApiService.getFavorites(), true));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        initList();
     }
 
     @Override

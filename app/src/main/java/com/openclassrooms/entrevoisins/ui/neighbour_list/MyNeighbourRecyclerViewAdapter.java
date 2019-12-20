@@ -14,9 +14,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import com.openclassrooms.entrevoisins.ui.neighbour_details.NeighbourDetailsActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +33,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     private final List<Neighbour> mNeighbours;
     private boolean isFavoriteFragment;
+    private NeighbourApiService mApiService = DI.getNeighbourApiService();
 
 
     MyNeighbourRecyclerViewAdapter(List<Neighbour> items, boolean isFavoriteFragment) {
@@ -89,7 +92,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
 
             /* Si la liste de favoris est vide >>> start ListNeighbourActivity */
-            if (getItemCount() == 0 && isFavoriteFragment) {
+            if ( mApiService.getFavorites().size() == 0 && isFavoriteFragment) {
                 Intent intent = new Intent(holder.itemView.getContext(), ListNeighbourActivity.class);
                 holder.itemView.getContext().startActivity(intent);
                 Toast toast = Toast.makeText(holder.itemView.getContext(), "You have no favorites", Toast.LENGTH_LONG);
