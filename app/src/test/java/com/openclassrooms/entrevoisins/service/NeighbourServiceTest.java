@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -59,8 +58,8 @@ public class NeighbourServiceTest {
     public void getFavoritesWithSuccess() {
 
         mApiService.deleteAllFavorites();
-        Neighbour neighbour = neighbours.get(0);
-        int size = mApiService.getFavorites().size();
+        Neighbour neighbour = neighbours.get(new Random().nextInt(mApiService.getNeighbours().size()));
+
         neighbour.setIsFavorite(true);
 
 
@@ -70,8 +69,8 @@ public class NeighbourServiceTest {
     }
 
     @Test
-        public void addFavNeighbourWithSuccess() {
-        Neighbour neighbour = new Neighbour(1, "test", "test");
+    public void addFavNeighbourWithSuccess() {
+        Neighbour neighbour = neighbours.get(new Random().nextInt(mApiService.getNeighbours().size()));
         mApiService.addFavorite(neighbour);
 
         //La liste des favoris contient bien le voisin ajouté dans la liste des favoris
@@ -94,7 +93,7 @@ public class NeighbourServiceTest {
         mApiService.deleteFavorite(neighbourToDelete);
 
         // Le voisin supprimé depuis les favoris ne doit plus être dans la liste des favoris ...
-        assertFalse(list.contains(neighbourToDelete));
+        assertFalse(mApiService.getFavorites().contains(neighbourToDelete));
 
         // ... mais doit rester dans la liste pricipale
         assertTrue(neighbours.contains(neighbourToDelete));
