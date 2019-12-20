@@ -96,6 +96,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 toast.show();
             }
         });
+
     }
 
 

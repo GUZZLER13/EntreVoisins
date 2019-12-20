@@ -48,4 +48,6 @@ public interface NeighbourApiService {
      */
     void deleteFavorite(Neighbour neighbour);
 
+    void deleteAllFavorites();
+
 }

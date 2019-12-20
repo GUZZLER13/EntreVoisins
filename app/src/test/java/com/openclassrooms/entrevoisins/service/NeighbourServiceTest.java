@@ -25,7 +25,9 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JUnit4.class)
 public class NeighbourServiceTest {
 
-    private NeighbourApiService mApiService;
+    private NeighbourApiService mApiService = DI.getNeighbourApiService();
+    List<Neighbour> neighbours = mApiService.getNeighbours();
+
 
     @Before
     public void setup() {
@@ -34,7 +36,7 @@ public class NeighbourServiceTest {
 
     @Test
     public void getNeighboursWithSuccess() {
-        List<Neighbour> neighbours = mApiService.getNeighbours();
+
         List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
 
         //La liste de voisins demandée est la même que celle espérée
@@ -52,15 +54,19 @@ public class NeighbourServiceTest {
         assertFalse(mApiService.getFavorites().contains(neighbourToDelete));
     }
 
+
     @Test
     public void getFavoritesWithSuccess() {
-        mApiService.getFavorites().clear();
-        Neighbour neighbour = new Neighbour(1, "test", "test");
-        mApiService.getFavorites().add(neighbour);
+
+        mApiService.deleteAllFavorites();
+        Neighbour neighbour = neighbours.get(0);
+        int size = mApiService.getFavorites().size();
+        neighbour.setIsFavorite(true);
+
 
         //La liste des favoris ne contient que le voisin ajouté en favoris
-        assertEquals(mApiService.getFavorites().get(0), neighbour);
-        assertEquals(mApiService.getFavorites().size(), 1);
+
+        assertTrue(mApiService.getFavorites().contains(neighbour));
     }
 
     @Test

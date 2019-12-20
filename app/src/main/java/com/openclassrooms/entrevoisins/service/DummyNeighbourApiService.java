@@ -60,4 +60,15 @@ public class DummyNeighbourApiService implements NeighbourApiService {
     public void deleteFavorite(Neighbour neighbour) {
         neighbour.setIsFavorite(false);
     }
+
+
+
+    @Override
+    public void deleteAllFavorites() {
+        for (Neighbour m : neighbours) {
+            if (m.getIsFavorite()) {
+                m.setIsFavorite(false);
+            }
+        }
+    }
 }
