@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 public class NeighbourServiceTest {
 
     private NeighbourApiService mApiService = DI.getNeighbourApiService();
-    List<Neighbour> neighbours = mApiService.getNeighbours();
+    private List<Neighbour> neighbours = mApiService.getNeighbours();
 
 
     @Before
