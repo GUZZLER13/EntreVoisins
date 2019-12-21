@@ -138,7 +138,6 @@ public class NeighboursListTest {
         onView(withId(R.id.list_neighbours)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.Favorite)).
                 perform(pressBack());
-        onView(withId(R.id.list_neighbours)).perform(RecyclerViewActions.actionOnItemAtPosition(mApiService.getNeighbours().size() - 1, new DeleteViewAction()));
 
         //Then : The FavList have 3 more Neighbors
         onView(ViewMatchers.withId(R.id.list_favorites)).check(withItemCount(sizeFav + 3));
